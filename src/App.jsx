@@ -55,9 +55,31 @@ function DateCounter() {
     setGap((g) => g + step);
   }
 
+  function handleReset() {
+    setGap(0);
+    setStep(0);
+    updateMessage(0);
+  }
+  function handleChange(e) {
+    setStep(parseInt(e.target.value));
+  }
+
+  function handleInput(e) {
+    const g = parseInt(e.target.value);
+    setGap(g);
+    updateMessage(g);
+  }
+
   return (
     <>
       <div style={{ display: "flex", gap: "12px" }}>
+        <input
+          type="range"
+          min="0"
+          max="10"
+          onChange={handleChange}
+          value={step}
+        />{" "}
         <button onClick={handleStepDown}>Step - 1</button>
         <p>Current Step: {step}</p>
         <button onClick={handleStepUp}>Step + 1</button>
@@ -65,11 +87,19 @@ function DateCounter() {
 
       <div style={{ display: "flex", gap: "12px" }}>
         <button onClick={handleGapDown}>Gap -</button>
-        <p>Current Gap: {gap}</p>
+        <input
+          type="text"
+          placeholder={gap}
+          value={gap}
+          onChange={handleInput}
+        ></input>
+        {/* <p>Current Gap: {gap}</p> */}
         <button onClick={handleGapUp}>Gap +</button>
       </div>
 
       <p>{message}</p>
+
+      {gap || step ? <button onClick={handleReset}>RESET</button> : null}
     </>
   );
 }
