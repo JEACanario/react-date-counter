@@ -14,7 +14,9 @@ function DateCounter() {
   const [gap, setGap] = useState(0);
   const today = new Date();
   let currentDate = new Date();
-  let [message, setMessage] = useState(`Today is ${currentDate.toDateString()}`);
+  let [message, setMessage] = useState(
+    `Today is ${currentDate.toDateString()}`
+  );
 
   function handleStepDown() {
     if (step > 0) setStep((s) => s - 1);
@@ -23,15 +25,16 @@ function DateCounter() {
     setStep((s) => s + 1);
   }
 
-  function updateMessage(interval){
+  function updateMessage(interval) {
     console.log(interval);
     console.log(currentDate.toDateString());
     if (interval === 0) {
-      setMessage(`Today is ${currentDate.toDateString()}`)
-    }else{
-      setMessage(`${interval} Days from today will be ${currentDate.toDateString()}`);
-    };
-
+      setMessage(`Today is ${currentDate.toDateString()}`);
+    } else {
+      setMessage(
+        `${interval} Days from today will be ${currentDate.toDateString()}`
+      );
+    }
   }
 
   function handleGapDown() {
@@ -39,7 +42,6 @@ function DateCounter() {
       setGap((g) => g - step);
       currentDate.setDate(today.getDate() + gap);
       updateMessage(gap - step);
-
     } else {
       currentDate.setDate(today.getDate());
       updateMessage(0);
@@ -49,9 +51,8 @@ function DateCounter() {
 
   function handleGapUp() {
     currentDate.setDate(today.getDate() + gap);
-    updateMessage(gap+step);
+    updateMessage(gap + step);
     setGap((g) => g + step);
-
   }
 
   return (
